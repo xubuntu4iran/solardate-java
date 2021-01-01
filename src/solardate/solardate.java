@@ -3,6 +3,15 @@ package solardate;
 import java.util.Calendar;
 
 public class solardate {
+	
+	public static String convertToPersianDigits(int value)
+	{
+		String values = Integer.toString(value);
+	     String newValue = values.replace("1", "۱").replace("2", "۲").replace("3", "۳").replace("4", "۴").replace("5", "۵")
+	             .replace( "6","۶").replace("7", "٧").replace("8", "۸").replace("9", "۹").replace("0", "۰");
+
+	     return newValue;
+	}
 	  
 	  static int isLeap(int ym){
 		  int ly;
@@ -28,6 +37,7 @@ public class solardate {
 	    int mm = cal.get(Calendar.MONTH)+1;
 	    int ym = cal.get(Calendar.YEAR);
 	    int dm = cal.get(Calendar.DAY_OF_MONTH);
+	    int dw = cal.get(Calendar.DAY_OF_WEEK);
 	    int ds=1;
 	    int ms =1;
 	    int ys=1370;
@@ -765,46 +775,89 @@ public class solardate {
 	    }
 	    }
 	  
-String mss="";
+String mss=null;
+String mssf=null;
 	    if (ms == 1){
 			mss="Farvardin";
+			mssf="فروردین";
 			}
 		else if (ms == 2){
 			mss="Ordibehesht";
+			mssf="اردیبهشت";
 			}
 		else if (ms == 3){
 			mss="Khordad";
+			mssf="خرداد";
 			}
 			else if (ms == 4){
 			mss="Tir";
+			mssf="تیر";
 			}
 			else if (ms == 5){
 			mss= "Mordad";
+			mssf="مرداد";
 			}
 			else if (ms == 6){
 			mss= "Shahrivar";
+			mssf="شهریور";
 			}
 			else if (ms == 7){
 			mss= "Mehr";
+			mssf="مهر";
 			}
 			else if (ms == 8){
 			mss= "Aban";
+			mssf="آبان";
 			}
 			else if (ms == 9){
 			mss= "Azar";
+			mssf="آذر";
 			}
 			else if (ms == 10){
 			mss= "Dey";
+			mssf="دی";
 			}
 			else if (ms == 11){
 			mss="Bahman";
+			mssf="بهمن";
 			}
 			else if (ms == 12){
 			mss= "Esfand";
+			mssf="اسفند";
 			}
+	   String dwsf=null;
+	    if(dw == 1) {
+	    	dwsf="یکشنبه";
+	    }else if(dw==2) {
+	    	dwsf="دوشنبه";
+	    }
+	    else if(dw==3) {
+	    	dwsf="سه شنبه";
+	    }
+	    else if(dw==4) {
+	    	dwsf="چهارشنبه";
+	    }
+	    else if(dw==5) {
+	    	dwsf="پنج شنبه";
+	    }
+	    else if(dw==6) {
+	    	dwsf="جمعه";
+	    }
+	    else if(dw==7) {
+	    	dwsf="شنبه";
+	    }
 			
-	    
+	    if(args.length >0) {
+	    if(args[0].equals("+%V")) {
+	    	System.out.printf("%s\n",mssf);
+	    }else if(args[0].equals("+%G")) {
+	    	System.out.printf("%s\n",dwsf);
+	    }else if(args[0].equals("+%W")) {
+	    	System.out.printf("%s/%s/%s\n",convertToPersianDigits(ys),convertToPersianDigits(ms),convertToPersianDigits(ds));
+	    }
+	    }else {
 	    System.out.printf("%s %d, %d AP\n",mss,ds,ys);
+	    }
 
 	}
 
